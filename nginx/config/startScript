@@ -1,0 +1,3 @@
+php-fpm -D -O 
+
+nginx

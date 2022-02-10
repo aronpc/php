@@ -1,0 +1,110 @@
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions
+
+RUN install-php-extensions amqp
+RUN install-php-extensions apcu
+RUN install-php-extensions ast
+RUN install-php-extensions bcmath
+RUN install-php-extensions bz2
+RUN install-php-extensions calendar
+RUN install-php-extensions dba
+RUN install-php-extensions decimal
+RUN install-php-extensions enchant
+RUN install-php-extensions ev
+RUN install-php-extensions event
+RUN install-php-extensions exif
+RUN install-php-extensions gd
+RUN install-php-extensions gettext
+RUN install-php-extensions gmagick
+RUN install-php-extensions gmp
+RUN install-php-extensions gnupg
+RUN install-php-extensions grpc
+RUN install-php-extensions http
+RUN install-php-extensions igbinary
+RUN install-php-extensions imap
+RUN install-php-extensions inotify
+RUN install-php-extensions intl
+RUN install-php-extensions json_post
+RUN install-php-extensions ldap
+RUN install-php-extensions lzf
+RUN install-php-extensions mcrypt
+RUN install-php-extensions memcache
+RUN install-php-extensions memcached
+RUN install-php-extensions mongodb
+RUN install-php-extensions msgpack
+RUN install-php-extensions oauth
+RUN install-php-extensions oci8
+RUN install-php-extensions odbc
+RUN install-php-extensions opcache
+RUN install-php-extensions pcntl
+RUN install-php-extensions pdo_dblib
+RUN install-php-extensions pdo_firebird
+RUN install-php-extensions pdo_mysql
+RUN install-php-extensions pdo_oci
+RUN install-php-extensions pdo_pgsql
+RUN install-php-extensions pgsql
+RUN install-php-extensions redis
+RUN install-php-extensions smbclient
+RUN install-php-extensions snmp
+RUN install-php-extensions soap
+RUN install-php-extensions sockets
+RUN install-php-extensions ssh2
+RUN install-php-extensions timezonedb
+RUN install-php-extensions uuid
+RUN install-php-extensions xdebug
+RUN install-php-extensions xhprof
+RUN install-php-extensions xmldiff
+RUN install-php-extensions xmlrpc
+RUN install-php-extensions xsl
+RUN install-php-extensions yaml
+RUN install-php-extensions zip
+
+RUN apt update
+RUN apt install -yq unzip git
+
+# Set correct environment variables
+ENV HOME=/home/abc
+ENV COMPOSER_HOME=$HOME/.composer
+
+# Install composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer2
+COPY --from=composer:1 /usr/bin/composer /usr/bin/composer1
+
+USER root
+
+WORKDIR /tmp
+
+RUN adduser --disabled-password --gecos "" abc 
+RUN echo "abc  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers
+RUN mkdir -p /var/www/html
+RUN rm -rf ${COMPOSER_HOME}/cache/*
+RUN chown -R abc:abc /var/www $HOME
+
+ADD ./fpm/fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
+ADD ./fpm/php.ini /usr/local/etc/php/php.ini
+
+ENV PATH "$PATH:$COMPOSER_HOME/vendor/bin"
+
+#RUN apk del --purge grep build-base file openssl-dev
+
+RUN rm -rf /tmp/* \
+  /usr/includes/* \
+  /usr/share/man/* \
+  /usr/src/* \
+  /var/cache/apk/* \
+  /var/tmp/* \
+  /opt/oracle/instantclient* \
+  /var/lib/apt/lists/*
+
+VOLUME ${HOME}
+
+USER abc
+
+WORKDIR /var/www/html
+
+EXPOSE 9000 9001
