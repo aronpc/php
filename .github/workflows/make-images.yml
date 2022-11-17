@@ -1,7 +1,7 @@
 name: Make images
 
 on:
-  schedule: # execute every 24 hours
+  schedule: # execute every monday
     - cron: "0 0 * * 1"
   workflow_dispatch:
 
