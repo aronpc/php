@@ -2,14 +2,18 @@
 
 set -e
 
-REPONAME="aronpc/cati-php"
+REPONAME="aronpc/php"
 LATEST_VERSION="8.1"
-# 7.2 7.4 8.0 8.1-rc
-for TAG in 8.1 ; do
+# 7.2 7.4 8.0 8.1 8.2-rc
+for TAG in 7.2 7.4 8.0 8.1 ; do
 	FPM_IMAGE_NAME="${REPONAME}:$TAG-fpm"
 	DOCKERFILE=Dockerfile.fpm
 	if [[ "$TAG" == "8.1" ]] ; then
 		DOCKERFILE=Dockerfile.fpm8.1
+	fi
+	
+	if [[ "$TAG" == "8.2-rc" ]] ; then
+		DOCKERFILE=Dockerfile.fpm8.2
 	fi
 
 	if docker build --tag ${FPM_IMAGE_NAME} --build-arg PHP_VERSION="${TAG}-fpm" --file $DOCKERFILE . --pull --compress	; then
