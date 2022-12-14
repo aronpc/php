@@ -1,5 +1,10 @@
 name: Make images
 
+env:
+    REPOSITORY_NAME: 'aronpc/php'
+    LATEST_VERSION: '8.2'
+    PHP_VERSIONS: '7.0 7.1 7.2 7.4 8.0 8.1 8.2'
+
 on:
   push:
   schedule: # execute every 24 hours
@@ -9,11 +14,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: generate
+    name: 'Build and push images'
     steps:
-      - uses: docker/login-action@v2
+      - name: "DockerHub login"
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3
-      - run: bash ./make.sh
+      - name: "Branch checkout"
+        uses: actions/checkout@v3
+      - name: "Build and push images"
+        run: bash ./make.sh

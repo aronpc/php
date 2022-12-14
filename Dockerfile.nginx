@@ -11,8 +11,8 @@ LABEL maintainer="Aron Peyroteo <aron@mqx.com.br>" \
 
 USER root
 
-RUN apt update -yq
-RUN apt install -yq nginx-full
+RUN apt update -yqqq
+RUN apt install -yqqq nginx-full
 RUN usermod -aG www-data abc
 
 # Configure nginx

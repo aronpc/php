@@ -1,69 +1,68 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}
 
+RUN apt update -yqqq
+RUN apt install -yqqq unzip git
+
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN php -v
 RUN chmod +x /usr/local/bin/install-php-extensions
 
-RUN install-php-extensions amqp
-RUN install-php-extensions apcu
-RUN install-php-extensions ast
-RUN install-php-extensions bcmath
-RUN install-php-extensions bz2
-RUN install-php-extensions calendar
-RUN install-php-extensions dba
-RUN install-php-extensions decimal
-RUN install-php-extensions enchant
-RUN install-php-extensions ev
-RUN install-php-extensions event
-RUN install-php-extensions exif
-RUN install-php-extensions gd
-RUN install-php-extensions gettext
-RUN install-php-extensions gmagick
-RUN install-php-extensions gmp
-RUN install-php-extensions gnupg
-RUN install-php-extensions grpc
-RUN install-php-extensions http
-RUN install-php-extensions igbinary
-RUN install-php-extensions imap
-RUN install-php-extensions inotify
-RUN install-php-extensions intl
-RUN install-php-extensions json_post
-RUN install-php-extensions ldap
-RUN install-php-extensions lzf
-RUN install-php-extensions mcrypt
-RUN install-php-extensions memcache
-RUN install-php-extensions memcached
-RUN install-php-extensions mongodb
-RUN install-php-extensions msgpack
-RUN install-php-extensions oauth
-RUN install-php-extensions oci8
-RUN install-php-extensions odbc
-RUN install-php-extensions opcache
-RUN install-php-extensions pcntl
-RUN install-php-extensions pdo_firebird
-RUN install-php-extensions pdo_mysql
-RUN install-php-extensions pdo_oci
-RUN install-php-extensions pdo_pgsql
-RUN install-php-extensions pgsql
-RUN install-php-extensions redis
-RUN install-php-extensions smbclient
-RUN install-php-extensions snmp
-RUN install-php-extensions soap
-RUN install-php-extensions sockets
-RUN install-php-extensions ssh2
-RUN install-php-extensions stomp
-RUN install-php-extensions timezonedb
-RUN install-php-extensions uuid
-RUN install-php-extensions xdebug
-RUN install-php-extensions xhprof
-RUN install-php-extensions xmldiff
-RUN install-php-extensions xsl
-RUN install-php-extensions zip
-
-RUN apt update
-RUN apt install -yq unzip git
+RUN install-php-extensions amqp > /dev/null 2>&1
+RUN install-php-extensions apcu > /dev/null 2>&1
+RUN install-php-extensions ast > /dev/null 2>&1
+RUN install-php-extensions bcmath > /dev/null 2>&1
+RUN install-php-extensions bz2 > /dev/null 2>&1
+RUN install-php-extensions calendar > /dev/null 2>&1
+RUN install-php-extensions dba > /dev/null 2>&1
+RUN install-php-extensions decimal > /dev/null 2>&1
+RUN install-php-extensions enchant > /dev/null 2>&1
+RUN install-php-extensions ev > /dev/null 2>&1
+RUN install-php-extensions event > /dev/null 2>&1
+RUN install-php-extensions exif > /dev/null 2>&1
+RUN install-php-extensions gd > /dev/null 2>&1
+RUN install-php-extensions gettext > /dev/null 2>&1
+RUN install-php-extensions gmagick > /dev/null 2>&1
+RUN install-php-extensions gmp > /dev/null 2>&1
+RUN install-php-extensions gnupg > /dev/null 2>&1
+RUN install-php-extensions grpc > /dev/null 2>&1
+RUN install-php-extensions http > /dev/null 2>&1
+RUN install-php-extensions igbinary > /dev/null 2>&1
+RUN install-php-extensions imap > /dev/null 2>&1
+RUN install-php-extensions inotify > /dev/null 2>&1
+RUN install-php-extensions intl > /dev/null 2>&1
+RUN install-php-extensions json_post > /dev/null 2>&1
+RUN install-php-extensions ldap > /dev/null 2>&1
+RUN install-php-extensions lzf > /dev/null 2>&1
+RUN install-php-extensions mcrypt > /dev/null 2>&1
+RUN install-php-extensions memcache > /dev/null 2>&1
+RUN install-php-extensions memcached > /dev/null 2>&1
+RUN install-php-extensions mongodb > /dev/null 2>&1
+RUN install-php-extensions msgpack > /dev/null 2>&1
+RUN install-php-extensions oauth > /dev/null 2>&1
+RUN install-php-extensions oci8 > /dev/null 2>&1
+RUN install-php-extensions odbc > /dev/null 2>&1
+RUN install-php-extensions opcache > /dev/null 2>&1
+RUN install-php-extensions pcntl > /dev/null 2>&1
+RUN install-php-extensions pdo_firebird > /dev/null 2>&1
+RUN install-php-extensions pdo_mysql > /dev/null 2>&1
+RUN install-php-extensions pdo_oci > /dev/null 2>&1
+RUN install-php-extensions pdo_pgsql > /dev/null 2>&1
+RUN install-php-extensions pgsql > /dev/null 2>&1
+RUN install-php-extensions redis > /dev/null 2>&1
+RUN install-php-extensions smbclient > /dev/null 2>&1
+RUN install-php-extensions snmp > /dev/null 2>&1
+RUN install-php-extensions soap > /dev/null 2>&1
+RUN install-php-extensions sockets > /dev/null 2>&1
+RUN install-php-extensions ssh2 > /dev/null 2>&1
+RUN install-php-extensions stomp > /dev/null 2>&1
+RUN install-php-extensions timezonedb > /dev/null 2>&1
+RUN install-php-extensions uuid > /dev/null 2>&1
+RUN install-php-extensions xdebug > /dev/null 2>&1
+RUN install-php-extensions xhprof > /dev/null 2>&1
+RUN install-php-extensions xmldiff > /dev/null 2>&1
+RUN install-php-extensions xsl > /dev/null 2>&1
+RUN install-php-extensions zip > /dev/null 2>&1
 
 # Set correct environment variables
 ENV HOME=/home/abc
