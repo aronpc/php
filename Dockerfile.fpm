@@ -79,6 +79,9 @@ USER root
 
 WORKDIR /tmp
 
+# xdebug coverage mode
+RUN echo "xdebug.mode=coverage,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 RUN adduser --disabled-password --gecos "" abc 
 RUN echo "abc  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers
 RUN mkdir -p /var/www/html
