@@ -69,6 +69,7 @@ ENV COMPOSER_HOME=$HOME/.composer
 
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1 /usr/bin/composer /usr/bin/composer1
 
 USER root
 
