@@ -8,9 +8,9 @@ build-%:
 	@TAG=$*; \
 	FPM_IMAGE_NAME="$(REPOSITORY_NAME):$${TAG}-fpm"; \
 	DOCKERFILE=Dockerfile.fpm; \
-	if [ "$${TAG}" =~ ^8.1 ]; then \
+	if [[ "$${TAG}" =~ ^8.1 ]]; then \
 		DOCKERFILE=Dockerfile.fpm8.1; \
-	elif [ "$${TAG}" =~ ^8.2 ]; then \
+	elif [[ "$${TAG}" =~ ^8.2 ]]; then \
 		DOCKERFILE=Dockerfile.fpm8.2; \
 	elif [[ "$${TAG}" =~ ^8.3 ]]; then \
 		DOCKERFILE=Dockerfile.fpm8.3; \
