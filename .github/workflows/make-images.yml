@@ -1,10 +1,5 @@
 name: Make images
 
-env:
-    REPOSITORY_NAME: 'aronpc/php'
-    LATEST_VERSION: '8.2'
-    PHP_VERSIONS: '7.0 7.1 7.2 7.4 8.0 8.1 8.2'
-
 on:
   push:
     branches:
@@ -25,5 +20,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: "Branch checkout"
         uses: actions/checkout@v3
-      - name: "Build and push images"
-        run: bash ./make.sh
+
+      - name: "Build and Push Docker Images"
+        env:
+          PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
+          LATEST_VERSION: ${{ vars.LATEST_VERSION }}
+          REPOSITORY_NAME: ${{ vars.REPOSITORY_NAME }}
+        run: |
+          make all
