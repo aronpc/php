@@ -23,8 +23,8 @@ jobs:
 
       - name: "Build and Push Docker Images"
         env:
-          PHP_VERSIONS: ${{ env.PHP_VERSIONS }}
-          LATEST_VERSION: ${{ env.LATEST_VERSION }}
-          REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
+          PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
+          LATEST_VERSION: ${{ vars.LATEST_VERSION }}
+          REPOSITORY_NAME: ${{ vars.REPOSITORY_NAME }}
         run: |
           make all
