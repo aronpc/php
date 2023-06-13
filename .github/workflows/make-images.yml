@@ -1,10 +1,7 @@
 name: Make images
 
 on:
-  push:
-    branches:
-      - master
-  schedule: # execute every monday
+  schedule:
     - cron: "0 0 * * 1"
   workflow_dispatch:
 
