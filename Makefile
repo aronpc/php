@@ -8,13 +8,14 @@ build-%:
 	@TAG=$*; \
 	FPM_IMAGE_NAME="$(REPOSITORY_NAME):$${TAG}-fpm"; \
 	DOCKERFILE=Dockerfile.fpm; \
-	if [[ "$${TAG}" =~ ^8.1 ]]; then \
+	if echo "$${TAG}" |grep -q "8.1"; then \
 		DOCKERFILE=Dockerfile.fpm8.1; \
-	elif [[ "$${TAG}" =~ ^8.2 ]]; then \
+	elif echo "$${TAG}" |grep -q "8.2"; then \
 		DOCKERFILE=Dockerfile.fpm8.2; \
-	elif [[ "$${TAG}" =~ ^8.3 ]]; then \
+	elif echo "$${TAG}" |grep -q "8.3"; then \
 		DOCKERFILE=Dockerfile.fpm8.3; \
 	fi; \
+	echo "BUILDING PHP $${FPM_IMAGE_NAME} USING $${DOCKERFILE}"; \
 	if docker build --tag "$${FPM_IMAGE_NAME}" --build-arg PHP_VERSION="$${TAG}-fpm" --file "$${DOCKERFILE}" . --pull --compress; then \
 		docker push "$${FPM_IMAGE_NAME}"; \
 		if [ "$${TAG}" = "$(LATEST_VERSION)" ]; then \
@@ -25,6 +26,7 @@ build-%:
 	fi; \
 	NGINX_IMAGE_NAME="$(REPOSITORY_NAME):$${TAG}-nginx"; \
 	if docker build --file Dockerfile.nginx . --tag "$${NGINX_IMAGE_NAME}" --build-arg FROM_FPM_IMAGE="$${FPM_IMAGE_NAME}" --pull --compress; then \
+		echo "BUILDING PHP $${FPM_IMAGE_NAME}"; \
 		docker push "$${NGINX_IMAGE_NAME}"; \
 		if [ "$${TAG}" = "$(LATEST_VERSION)" ]; then \
 			NGINX_IMAGE_ID=$$(docker image ls "$${NGINX_IMAGE_NAME}" | awk 'NR==2 {print $$3}'); \
