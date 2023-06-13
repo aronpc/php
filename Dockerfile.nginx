@@ -3,11 +3,11 @@ ARG FROM_FPM_IMAGE
 FROM ${FROM_FPM_IMAGE}
 
 LABEL maintainer="Aron Peyroteo <aron@mqx.com.br>" \
-  org.label-schema.name="aronpc/cati-php" \
-  org.label-schema.description=":coffee: Docker images for PHP" \
+  org.label-schema.name="aronpc/php" \
+  org.label-schema.description="Docker images for PHP" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.schema-version="1.0" \
-  org.label-schema.vcs-url="https://github.com/aronpc/cati-php"
+  org.label-schema.vcs-url="https://github.com/aronpc/php"
 
 USER root
 
