@@ -1,0 +1,7 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+VERSION=$(echo "$1" | cut -c 1-3)
+
+cat "/tmp/extensions" | grep $VERSION|awk '{system("/usr/local/bin/install-php-extensions "$VERSION)}'

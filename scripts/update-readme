@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+# Set directories
+SCRIPTS_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+ROOT_DIR="$(dirname -- "$SCRIPTS_DIR")"
+DATA_DIR="${ROOT_DIR}/fpm"
+READMEFILE="${ROOT_DIR}/README.md"
+
+# include env if exists
+if [ -f "${ROOT_DIR}/.env" ] ; then
+  . "${ROOT_DIR}/.env";
+fi
+
+# include script files
+. "${SCRIPTS_DIR}/generate-extensions-table"
+
+tableContents "$PHP_VERSIONS" "${DATA_DIR}/extensions"

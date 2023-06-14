@@ -16,8 +16,8 @@ RUN apt install -yqqq nginx-full
 RUN usermod -aG www-data abc
 
 # Configure nginx
-ADD nginx/config/nginx.conf /etc/nginx/nginx.conf
-ADD nginx/config/startScript /home/abc/startScript
+ADD config/nginx.conf /etc/nginx/nginx.conf
+ADD config/startScript /home/abc/startScript
 
 RUN chown -R abc.abc /home/abc/startScript
 RUN chmod +x /home/abc/startScript

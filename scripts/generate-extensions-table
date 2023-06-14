@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+tableContents() {
+  VERSIONS=$1
+  EXTENSIONS=$2
+  START_TAG="[//]: # (START OF EXTENSIONS TABLE)"
+  END_TAG="[//]: # (END OF EXTENSIONS TABLE)"
+
+  # Cria o cabeçalho da tabela
+  TABLE="| Extensão |"
+  for version in $VERSIONS; do
+    TABLE+=" $version |"
+  done
+  TABLE+="\n| --- |"
+  for version in $VERSIONS; do
+    TABLE+=" --- |"
+  done
+  # Lê o arquivo de texto linha por linha e adiciona as linhas da tabela
+  while IFS= read -r line; do
+    read -ra fields <<< "$line"  # Divide a linha em campos separados
+    TABLE+="\n| ${fields[0]} |"
+    for version in $VERSIONS; do
+      if [[ " ${fields[*]} " =~ $version ]]; then
+        TABLE+=" &check; |"
+      else
+        TABLE+=" |"
+      fi
+    done
+  done < "$EXTENSIONS"
+
+
+  # Lê o arquivo linha por linha e realiza a substituição entre as tags
+  IN_TAG="0"
+  while IFS= read -r line; do
+    if [[ "$line" == "$START_TAG" ]]; then
+      # Encontrou a tag de início, começa a substituição
+      IN_TAG="1"
+      echo -e "$line"
+      echo -e "\n$TABLE\n"
+    elif [[ "$line" == "$END_TAG" ]]; then
+      # Encontrou a tag de fim, para a substituição
+      echo "$line"
+      IN_TAG="0"
+    else
+      if [ $IN_TAG -eq 0 ] ; then
+        # Fora das tags, imprime a linha original
+        echo "$line"
+      fi
+    fi
+  done < "$READMEFILE" > arquivo_temp.txt
+
+  mv arquivo_temp.txt  "$READMEFILE"
+}
