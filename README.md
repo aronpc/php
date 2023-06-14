@@ -13,7 +13,7 @@ These images install php extensions using [Easy installation of PHP extensions i
 
 [//]: # (START OF VERSIONS LIST)
 
-  - 8.3.0alpha1 - [aronpc/php:8.3.0alpha1-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.3.0alpha1-fpm), [aronpc/php:8.3.0alpha1-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.3.0alpha1-nginx)
+  - 8.3-rc - [aronpc/php:8.3-rc-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.3-rc-fpm), [aronpc/php:8.3-rc-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.3-rc-nginx)
   - 8.2, latest - [aronpc/php:8.2-fpm, aronpc/php:8.2-latest](https://hub.docker.com/r/aronpc/php/tags?name=8.2-fpm), [aronpc/php:8.2-nginx, aronpc/php:8.2-latest](https://hub.docker.com/r/aronpc/php/tags?name=8.2-nginx)
   - 8.1 - [aronpc/php:8.1-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.1-fpm), [aronpc/php:8.1-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.1-nginx)
   - 8.0 - [aronpc/php:8.0-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.0-fpm), [aronpc/php:8.0-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.0-nginx)
@@ -195,11 +195,9 @@ _php(){
 	  --volume /etc/passwd:/etc/passwd:ro \
 	  --volume /etc/group:/etc/group:ro \
 	  --user $UID:$GID \
-	  --volume $HOME/.1password/agent.sock:/ssh-auth.sock \
-	  --env SSH_AUTH_SOCK=/ssh-auth.sock \
  	  --volume $PWD:$PWD \
 	  -w $PWD\
-	  aronpc/php:aronpc/php:latest-nginx-fpm php $argv
+	  aronpc/php:latest-fpm php $argv
 }
 
 _composer(){
@@ -207,9 +205,7 @@ _composer(){
 	  --volume /etc/passwd:/etc/passwd:ro \
 	  --volume /etc/group:/etc/group:ro \
 	  --user $UID:$GID \
-	  --volume $HOME/.1password/agent.sock:/ssh-auth.sock \
-	  --env SSH_AUTH_SOCK=/ssh-auth.sock \
  	  --volume $PWD:$PWD \
 	  -w $PWD\
-	  aronpc/php:aronpc/php:latest-nginx-fpm composer $argv
+	  aronpc/php:latest-fpm composer $argv
 }
