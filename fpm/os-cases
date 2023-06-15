@@ -1,0 +1,11 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+. /etc/os-release
+
+VERSION_ID=$(echo $VERSION_ID | cut -d'.' -f1)
+
+if [ $VERSION_ID -lt 10 ]; then
+    echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list
+fi

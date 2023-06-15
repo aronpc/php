@@ -8,6 +8,10 @@ LABEL maintainer="Aron Peyroteo <aron@mqx.com.br>" \
   org.label-schema.schema-version="1.0" \
   org.label-schema.vcs-url="https://github.com/aronpc/php"
 
+ADD os-cases /tmp/os-cases
+RUN chmod +x /tmp/os-cases
+RUN /tmp/os-cases
+
 RUN apt update -yqqq 2>/dev/null
 RUN apt install -yqqq unzip git 2>/dev/null
 
