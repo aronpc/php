@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: all build push
+.PHONY: all build update-readme
 
 all: build
 
@@ -10,7 +10,7 @@ build-%:
 	@TAG=$*; \
 	FPM_IMAGE_NAME="$(REPOSITORY_NAME):$${TAG}-fpm"; \
 	echo "BUILDING PHP $${FPM_IMAGE_NAME}"; \
-	if docker build --progress plain --no-cache --tag "$${FPM_IMAGE_NAME}" --build-arg PHP_VERSION="$${TAG}-fpm" --file fpm/Dockerfile ./fpm/ --pull; then \
+	if docker build --progress plain  --tag "$${FPM_IMAGE_NAME}" --build-arg PHP_VERSION="$${TAG}-fpm" --file fpm/Dockerfile ./fpm/ --pull --compress; then \
 		docker push "$${FPM_IMAGE_NAME}"; \
 		if [ "$${TAG}" = "$(LATEST_VERSION)" ]; then \
 			FPM_IMAGE_ID=$$(docker image ls "$${FPM_IMAGE_NAME}" | awk 'NR==2 {print $$3}'); \
@@ -19,7 +19,7 @@ build-%:
 		fi; \
 	fi; \
 	NGINX_IMAGE_NAME="$(REPOSITORY_NAME):$${TAG}-nginx"; \
-	if docker build --file nginx/Dockerfile ./nginx/ --tag "$${NGINX_IMAGE_NAME}" --build-arg FROM_FPM_IMAGE="$${FPM_IMAGE_NAME}" --pull; then \
+	if docker build --file nginx/Dockerfile ./nginx/ --tag "$${NGINX_IMAGE_NAME}" --build-arg FROM_FPM_IMAGE="$${FPM_IMAGE_NAME}" --pull --compress; then \
 		echo "BUILDING PHP $${FPM_IMAGE_NAME}"; \
 		docker push "$${NGINX_IMAGE_NAME}"; \
 		if [ "$${TAG}" = "$(LATEST_VERSION)" ]; then \
