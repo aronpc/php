@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            PHP_VERSION="${{ matrix.php-version }}-fpm"
+            PHP_VERSION=${{ matrix.php-version }}
           context: fpm/.
           platforms: |
             linux/amd64
@@ -69,7 +69,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            PHP_VERSION="${{ matrix.php-version }}-nginx"
+            FROM_FPM_IMAGE="${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm"
           context: nginx/.
           platforms: |
             linux/amd64
