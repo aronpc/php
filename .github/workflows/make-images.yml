@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: "Branch checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Build and Push Docker Images"
         env:
           PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
