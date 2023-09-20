@@ -33,7 +33,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       
       - name: "Branch checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: "Set docker fpm tags: latest "
         if: vars.LATEST_VERSION == matrix.php-version
@@ -77,7 +77,6 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_NGINX_TAGS }}
 
-        uses: actions/checkout@v4
       - name: "Build and Push Docker Images"
         env:
           PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
