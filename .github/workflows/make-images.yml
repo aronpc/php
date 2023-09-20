@@ -51,8 +51,6 @@ jobs:
           context: fpm/.
           platforms: |
             linux/amd64
-            linux/arm/v7
-            linux/arm64/v8
           pull: true
           push: true
           tags: ${{ env.DOCKER_FPM_TAGS }}
@@ -77,7 +75,6 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_NGINX_TAGS }}
 
-        uses: actions/checkout@v4
       - name: "Build and Push Docker Images"
         env:
           PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
