@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: "DockerHub login"
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -76,3 +76,12 @@ jobs:
           pull: true
           push: true
           tags: ${{ env.DOCKER_NGINX_TAGS }}
+
+        uses: actions/checkout@v4
+      - name: "Build and Push Docker Images"
+        env:
+          PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
+          LATEST_VERSION: ${{ vars.LATEST_VERSION }}
+          REPOSITORY_NAME: ${{ vars.REPOSITORY_NAME }}
+        run: |
+          make all
