@@ -44,7 +44,7 @@ jobs:
         run: echo "DOCKER_FPM_TAGS=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm" >> $GITHUB_ENV
 
       - name: "Build and push FPM"
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
@@ -66,7 +66,7 @@ jobs:
         run: echo "DOCKER_NGINX_TAGS=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-nginx" >> $GITHUB_ENV
 
       - name: "Build and push nginx"
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           build-args: |
             FROM_FPM_IMAGE="${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm"
