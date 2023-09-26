@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_fpm:
     runs-on: ubuntu-latest
-    name: 'Build and push images'
+    name: 'Build fpm and push images'
     strategy:
       matrix:
         php-version: 
@@ -27,13 +27,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       
       - name: "Branch checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: "Set docker fpm tags: latest "
         if: vars.LATEST_VERSION == matrix.php-version
@@ -44,18 +44,49 @@ jobs:
         run: echo "DOCKER_FPM_TAGS=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm" >> $GITHUB_ENV
 
       - name: "Build and push FPM"
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           context: fpm/.
           platforms: |
             linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: ${{ env.DOCKER_FPM_TAGS }}
 
-      - name: "Set docker nginx tags: latest"
+  build_nginx:
+    runs-on: ubuntu-latest
+    name: 'Build nginx and push images'
+    strategy:
+      matrix:
+        php-version: 
+          - "7.2"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3-rc"
+
+    steps:
+      - name: "DockerHub login"
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: "Branch checkout"
+        uses: actions/checkout@v4
+        
+      - name: "Set docker nginx tags: latest "
         if: vars.LATEST_VERSION == matrix.php-version
         run: echo "DOCKER_NGINX_TAGS=${{ vars.REPOSITORY_NAME }}/${{ matrix.php-version }}-nginx, ${{ vars.REPOSITORY_NAME }}/latest-nginx" >> $GITHUB_ENV
       
@@ -63,22 +94,16 @@ jobs:
         if: vars.LATEST_VERSION != matrix.php-version
         run: echo "DOCKER_NGINX_TAGS=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-nginx" >> $GITHUB_ENV
 
-      - name: "Build and push nginx"
-        uses: docker/build-push-action@v3
+      - name: "Build and push FPM"
+        uses: docker/build-push-action@v5
         with:
           build-args: |
-            FROM_FPM_IMAGE="${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm"
+            PHP_VERSION=${{ matrix.php-version }}
           context: nginx/.
           platforms: |
             linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: ${{ env.DOCKER_NGINX_TAGS }}
-
-      - name: "Build and Push Docker Images"
-        env:
-          PHP_VERSIONS: ${{ vars.PHP_VERSIONS }}
-          LATEST_VERSION: ${{ vars.LATEST_VERSION }}
-          REPOSITORY_NAME: ${{ vars.REPOSITORY_NAME }}
-        run: |
-          make all
