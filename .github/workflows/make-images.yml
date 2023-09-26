@@ -60,6 +60,8 @@ jobs:
   build_nginx:
     runs-on: ubuntu-latest
     name: 'Build nginx and push images'
+    needs:
+      - build_fpm
     strategy:
       matrix:
         php-version: 
@@ -98,6 +100,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           build-args: |
+            FROM_FPM_IMAGE="${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm"
             PHP_VERSION=${{ matrix.php-version }}
           context: nginx/.
           platforms: |
