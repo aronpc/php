@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "Initialize Docker build environment"
-        uses: docker/setup-build-action@v3
+        uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
         uses: actions/checkout@v4
@@ -84,7 +84,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "Initialize Docker build environment"
-        uses: docker/setup-build-action@v3
+        uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
         uses: actions/checkout@v4
