@@ -103,7 +103,7 @@ jobs:
           push: true
           tags: |
             ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-nginx
-            ${{ vars.REPOSITORY_NAME }}/latest-nginx
+            ${{ vars.REPOSITORY_NAME }}:latest-nginx
 
       - name: "Build nginx image for specific version"
         uses: docker/build-push-action@v5
