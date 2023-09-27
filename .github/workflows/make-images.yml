@@ -59,7 +59,7 @@ jobs:
           push: true
           tags: |
             ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
-            ${{ vars.REPOSITORY_NAME }}/latest-fpm
+            ${{ vars.REPOSITORY_NAME }}:latest-fpm
 
   build_nginx:
     runs-on: ubuntu-latest
