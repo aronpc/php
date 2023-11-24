@@ -12,8 +12,7 @@ These images install php extensions using [Easy installation of PHP extensions i
 
 [//]: # (START OF VERSIONS LIST)
 
-  - 8.4-rc - [aronpc/php:8.4-rc-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.4-rc-fpm), [aronpc/php:8.4-rc-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.4-rc-nginx)
-  - 8.3 - [aronpc/php:8.3-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.3-fpm), [aronpc/php:8.3-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.3-nginx)
+  - 8.3-rc - [aronpc/php:8.3-rc-fpm](https://hub.docker.com/r/aronpc-rc/php/tags?name=8.3-rc-fpm), [aronpc/php:8.3-rc-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.3-rc-rc-nginx)
   - 8.2, latest - [aronpc/php:8.2-fpm, aronpc/php:8.2-latest](https://hub.docker.com/r/aronpc/php/tags?name=8.2-fpm), [aronpc/php:8.2-nginx, aronpc/php:8.2-latest](https://hub.docker.com/r/aronpc/php/tags?name=8.2-nginx)
   - 8.1 - [aronpc/php:8.1-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.1-fpm), [aronpc/php:8.1-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.1-nginx)
   - 8.0 - [aronpc/php:8.0-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.0-fpm), [aronpc/php:8.0-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.0-nginx)
