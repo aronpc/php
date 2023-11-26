@@ -16,10 +16,6 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3-rc"
-        platform:
-          - "linux/amd64"
-          - "linux/arm/v7"
-          - "linux/arm64/v8"
 
     steps:
       - name: "Authenticate DockerHub Account"
@@ -44,7 +40,10 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           context: fpm/.
-          platforms: ${{ matrix.platform }}
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: |
@@ -57,7 +56,10 @@ jobs:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
           context: fpm/.
-          platforms: ${{ matrix.platform }}
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: |
@@ -76,10 +78,6 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3-rc"
-        platform:
-          - "linux/amd64"
-          - "linux/arm/v7"
-          - "linux/arm64/v8"
 
     steps:
       - name: "Authenticate DockerHub Account"
@@ -102,7 +100,10 @@ jobs:
             FROM_FPM_IMAGE=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
             PHP_VERSION=${{ matrix.php-version }}
           context: nginx/.
-          platforms: ${{ matrix.platform }}
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: |
@@ -116,7 +117,10 @@ jobs:
             FROM_FPM_IMAGE=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
             PHP_VERSION=${{ matrix.php-version }}
           context: nginx/.
-          platforms: ${{ matrix.platform }}
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
           pull: true
           push: true
           tags: |
