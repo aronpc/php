@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Build FPM image for specific version"
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             PHP_VERSION=${{ matrix.php-version }}
@@ -73,7 +73,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Build nginx old image for specific version"
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             FROM_FPM_IMAGE=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
