@@ -1,0 +1,111 @@
+name: Make rc images
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  build_fpm:
+    runs-on: ubuntu-latest
+    name: 'Build fpm and push images'
+    strategy:
+      matrix:
+        php-version:
+          - "8.4-rc"
+
+    steps:
+      - name: "Authenticate DockerHub Account"
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: "Initialize Docker build environment"
+        uses: docker/setup-buildx-action@v3
+
+      - name: "Checkout the current branch"
+        uses: actions/checkout@v4
+
+      - name: "Build FPM image for specific version"
+        if: vars.LATEST_VERSION != matrix.php-version
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            PHP_VERSION=${{ matrix.php-version }}
+          context: fpm/.
+          platforms: |
+            linux/amd64
+          pull: true
+          push: true
+          tags: |
+            ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
+
+      - name: "Build and push FPM image for latest version"
+        if: vars.LATEST_VERSION == matrix.php-version
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            PHP_VERSION=${{ matrix.php-version }}
+          context: fpm/.
+          platforms: |
+            linux/amd64
+          pull: true
+          push: true
+          tags: |
+            ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
+
+  build_nginx:
+    runs-on: ubuntu-latest
+    name: 'Build nginx and push images'
+    needs:
+      - build_fpm
+    strategy:
+      matrix:
+        php-version:
+          - "8.4-rc"
+
+    steps:
+      - name: "Authenticate DockerHub Account"
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: "Initialize Docker build environment"
+        uses: docker/setup-buildx-action@v3
+
+      - name: "Checkout the current branch"
+        uses: actions/checkout@v4
+
+      - name: "Build and push nginx image for latest version"
+        if: vars.LATEST_VERSION == matrix.php-version
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            FROM_FPM_IMAGE=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
+            PHP_VERSION=${{ matrix.php-version }}
+          context: nginx/.
+          platforms: |
+            linux/amd64
+          pull: true
+          push: true
+          tags: |
+            ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-nginx
+
+      - name: "Build nginx image for specific version"
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            FROM_FPM_IMAGE=${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-fpm
+            PHP_VERSION=${{ matrix.php-version }}
+          context: nginx/.
+          platforms: |
+            linux/amd64
+          pull: true
+          push: true
+          tags: |
+            ${{ vars.REPOSITORY_NAME }}:${{ matrix.php-version }}-nginx
