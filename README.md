@@ -13,7 +13,7 @@ These images install php extensions using [Easy installation of PHP extensions i
 [//]: # (START OF VERSIONS LIST)
 
 # Updated every sunday.
-  - 8.4-rc - [aronpc/php:8.4-rc-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.4-rc-fpm), [aronpc/php:8.4-rc-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.4-rc-nginx)
+  - 8.4 - [aronpc/php:8.4-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.4-fpm), [aronpc/php:8.4-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.4-nginx)
   - 8.3, latest - [aronpc/php:8.3-fpm, aronpc/php:latest-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.3-fpm), [aronpc/php:8.3-nginx, aronpc/php:latest-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.3-nginx)
   - 8.2 - [aronpc/php:8.2-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.2-fpm), [aronpc/php:8.2-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.2-nginx)
   - 8.1 - [aronpc/php:8.1-fpm](https://hub.docker.com/r/aronpc/php/tags?name=8.1-fpm), [aronpc/php:8.1-nginx](https://hub.docker.com/r/aronpc/php/tags?name=8.1-nginx)
@@ -32,7 +32,7 @@ These images install php extensions using [Easy installation of PHP extensions i
 
 [//]: # (START OF EXTENSIONS TABLE)
 
-| Extensão | 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0 | 8.1 | 8.2 | 8.3 | 8.4-rc |
+| Extensão | 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0 | 8.1 | 8.2 | 8.3 | 8.4 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | amqp | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; |
 | apcu | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; |
