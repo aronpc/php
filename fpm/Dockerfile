@@ -46,7 +46,7 @@ RUN mkdir -p /var/www/html
 RUN rm -rf ${COMPOSER_HOME}/cache/*
 RUN chown -R abc:abc /var/www $HOME
 
-ADD fpm-pool.conf /usr/local/etcq/php-fpm.d/www.conf
+ADD fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
 ADD php.ini /usr/local/etc/php/php.ini
 
 ENV PATH "$PATH:$COMPOSER_HOME/vendor/bin"
