@@ -30,7 +30,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Build FPM image for specific version"
         uses: docker/build-push-action@v6
@@ -70,7 +70,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Build nginx old image for specific version"
         uses: docker/build-push-action@v6
