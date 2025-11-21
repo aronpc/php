@@ -28,7 +28,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Build FPM image for specific version"
         if: vars.LATEST_VERSION != matrix.php-version
@@ -79,7 +79,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: "Checkout the current branch"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Build and push nginx image for latest version"
         if: vars.LATEST_VERSION == matrix.php-version
